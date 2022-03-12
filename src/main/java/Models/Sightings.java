@@ -1,6 +1,9 @@
 package Models;
 
+import org.sql2o.Connection;
+
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Sightings {
 
@@ -41,5 +44,48 @@ public class Sightings {
     public Timestamp getLastSeen() {
         return lastSeen;
     }
+
+    @Override
+    public boolean equals(Object otherSighting){
+        if (!(otherSighting instanceof Sightings)) {
+            return false;
+        } else {
+            Sightings newSighting = (Sightings) otherSighting;
+            return this.getLocation().equals(newSighting.getLocation()) &&
+                    this.getRangerName().equals(newSighting.getRangerName()) &&
+                    this.getAnimalId() == newSighting.getAnimalId();
+        }
+    }
+
+    public void save(){
+        try(Connection con = DB.sql2o.open()) {
+            String sql = "INSERT INTO sightings (animalId, location, rangerName, lastSeen) VALUES (:animalId, :location, :rangerName, now())";
+            this.id = (int) con.createQuery(sql, true)
+                    .addParameter("animalId", this.animalId)
+                    .addParameter("location", this.location)
+                    .addParameter("rangerName",this.rangerName)
+                    .throwOnMappingFailure(false)
+                    .executeUpdate()
+                    .getKey();
+        }
+    }
+
+    public static List<Sightings> all(){
+        String sql = "SELECT * FROM sightings";
+        try(Connection con = DB.sql2o.open()) {
+            return con.createQuery(sql).executeAndFetch(Sightings.class);
+        }
+    }
+
+    public static Sightings find(int id) {
+        try(Connection con = DB.sql2o.open()) {
+            String sql = "SELECT * FROM sightings where id=:id";
+            Sightings sighting = con.createQuery(sql)
+                    .addParameter("id", id)
+                    .executeAndFetchFirst(Sightings.class);
+            return sighting;
+        }
+    }
+
 
 }
