@@ -1,5 +1,7 @@
 package Models;
 
+import java.sql.Connection;
+
 public abstract class Allanimals {
     public String name;
     public int id;
@@ -27,5 +29,17 @@ public abstract class Allanimals {
         return type;
     }
 
-
+    public void save(){
+        try(Connection con = DB.sql2o.open()) {
+            String sql = "INSERT INTO animals (name, health, age, type) VALUES (:name, :health, :age, :type)";
+            this.id = (int) con.createQuery(sql, true)
+                    .addParameter("name", this.name)
+                    .addParameter("health", this.health)
+                    .addParameter("age",this.age)
+                    .addParameter("type", this.type)
+                    .throwOnMappingFailure(false)
+                    .executeUpdate()
+                    .getKey();
+        }
+    }
 }
