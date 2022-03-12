@@ -1,6 +1,6 @@
 package Models;
 
-import java.sql.Connection;
+import org.sql2o.Connection;
 
 public abstract class Allanimals {
     public String name;
