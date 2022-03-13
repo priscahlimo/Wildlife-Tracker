@@ -3,6 +3,7 @@ package Models;
 import org.sql2o.Connection;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Allsightings {
@@ -10,19 +11,14 @@ public class Allsightings {
     private String location;
     private String rangerName;
     private Timestamp lastSeen;
-    public String name;
     public int id;
-    public String health;
-    public String age;
-    public String type;
 
-    public Allsightings(String name, String health, String age, String location, String rangerName, String type, Timestamp lastSeen){
-        this.name = name;
-        this.health = health;
-        this.age = age;
+
+    public Allsightings( int animalsId, String location, String rangerName,  Timestamp lastSeen){
+        this.animalId=animalsId;
         this.location = location;
         this.rangerName = rangerName;
-        this.type = type;
+
         this.lastSeen = lastSeen;
 
     }
@@ -43,31 +39,43 @@ public class Allsightings {
         return lastSeen;
     }
 
-    public String getName() {
-        return name;
-    }
 
     public int getId() {
         return id;
     }
 
-    public String getHealth() {
-        return health;
-    }
 
-    public String getAge() {
-        return age;
-    }
 
-    public String getType() {
-        return type;
-    }
-
-    public static List<Allsightings> getAll(){
-        String sql = "SELECT animals.id,name,health,age,location,rangerName,type,lastSeen FROM animals INNER JOIN sightings ON sightings.animalId = animals.id ORDER BY lastSeen";
+    public void save(){
         try(Connection con = DB.sql2o.open()) {
-            return con.createQuery(sql).executeAndFetch(Allsightings.class);
+            String sql = "INSERT INTO sightings (animalid, location, rangername, lastseen,) VALUES (:animalId :location, :rangername, :lastseen)";
+            this.id = (int) con.createQuery(sql, true)
+                    .addParameter("animalId", this.animalId)
+                    .addParameter("location", this.location)
+                    .addParameter("rangerName", this.rangerName)
+                    .addParameter("lastSeen",this.lastSeen)
+                    .throwOnMappingFailure(false)
+                    .executeUpdate()
+                    .getKey();
         }
     }
+
+    public static List<Object> getAll(){
+        String sql1 = "SELECT * FROM animals WHERE type='animal'";
+        String sql = "SELECT * FROM animals WHERE type='endagered-animal'";
+        List<Object> Allanimals= new ArrayList<>();
+        try(Connection con = DB.sql2o.open()) {
+
+            List<Animals> Myanimals= con.createQuery(sql1).executeAndFetch(Animals.class);
+            List<Endangeredanimals>Myendangeredanimals=con.createQuery(sql).executeAndFetch(Endangeredanimals.class);
+            Allanimals.addAll(Myanimals);
+            Allanimals.addAll(Myendangeredanimals);
+        }
+
+        return Allanimals;
+    }
+//    public static getAllSightings(){
+//
+//    }
 
 }

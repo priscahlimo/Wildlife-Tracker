@@ -6,7 +6,8 @@ plugins {
 group 'com.moringa.wildlife-tracker'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+targetCompatibility='1.8'
+sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
@@ -25,8 +26,7 @@ dependencies {
     implementation 'joda-time:joda-time:2.10.13'
     implementation group: 'org.postgresql', name: 'postgresql', version: '42.2.2'
     implementation group: 'postgresql', name: 'postgresql', version: '9.0-801.jdbc4'
+
 }
 
-test {
-    useJUnitPlatform()
-}
+

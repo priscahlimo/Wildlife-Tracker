@@ -2,7 +2,6 @@ package Models;
 
 import org.sql2o.Connection;
 
-import java.sql.Timestamp;
 import java.util.List;
 
 public class Sightings {
@@ -11,14 +10,15 @@ public class Sightings {
     private int id;
     private String location;
     private String rangerName;
-    private Timestamp lastSeen;
 
 
 
-    public Sightings (int animalId, String location, String rangerName){
+
+    public Sightings (int animalId, String location, String rangerName ){
         this.animalId = animalId;
         this.location = location;
         this.rangerName = rangerName;
+
 
         if (location.isEmpty() || rangerName.isEmpty()){
             throw new IllegalArgumentException("Please enter all input fields.");
@@ -41,9 +41,6 @@ public class Sightings {
         return rangerName;
     }
 
-    public Timestamp getLastSeen() {
-        return lastSeen;
-    }
 
     @Override
     public boolean equals(Object otherSighting){
