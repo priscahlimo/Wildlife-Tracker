@@ -8,7 +8,7 @@ An application that allows Rangers to track wildlife sightings in the area.
 * Clone the repository
 * Run the project on your machine
 
-##postgres setup
+## postgres setup
 
 CREATE DATABASE wildlife_tracker;
 
