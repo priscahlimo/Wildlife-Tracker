@@ -59,9 +59,9 @@ public class App {
             }
 
             List<Object> allSightings = Allsightings.getAll();
-//            List<Endangeredanimals> animals= Endangeredanimals.all();
+            List<Endangeredanimals> animals= Endangeredanimals.all();
             model.put("sightings", allSightings);
-//            model.put("animals", animals);
+            model.put("animals", animals);
 
             return new ModelAndView(model, "sight.hbs");
         }, new HandlebarsTemplateEngine());

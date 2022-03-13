@@ -5,7 +5,7 @@ import org.sql2o.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Animals  extends Allanimals implements DatabaseManagement{
+public class Animals  extends animals implements DatabaseManagement{
     public static final String ANIMAL_TYPE = "animal";
 
     public Animals(String name){

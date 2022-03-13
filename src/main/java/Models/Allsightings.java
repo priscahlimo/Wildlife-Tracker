@@ -14,7 +14,8 @@ public class Allsightings {
     public int id;
 
 
-    public Allsightings( int animalsId, String location, String rangerName,  Timestamp lastSeen){
+
+    public Allsightings(int animalsId, String location, String rangerName, Timestamp lastSeen){
         this.animalId=animalsId;
         this.location = location;
         this.rangerName = rangerName;
@@ -74,8 +75,5 @@ public class Allsightings {
 
         return Allanimals;
     }
-//    public static getAllSightings(){
-//
-//    }
 
 }

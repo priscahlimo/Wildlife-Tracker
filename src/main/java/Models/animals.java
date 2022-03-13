@@ -2,7 +2,7 @@ package Models;
 
 import org.sql2o.Connection;
 
-public abstract class Allanimals {
+public abstract class animals {
     public String name;
     public int id;
     public String health;
