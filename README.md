@@ -9,6 +9,7 @@ An application that allows Rangers to track wildlife sightings in the area.
 * Run the project on your machine
 
 ##postgres setup
+
 CREATE DATABASE wildlife_tracker;
 
 CREATE TABLE sightings (id serial PRIMARY KEY, animalid integer,location varchar,rangername,lastseen timestamp);
