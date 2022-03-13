@@ -6,14 +6,15 @@ plugins {
 group 'com.moringa.wildlife-tracker'
 version '1.0-SNAPSHOT'
 
-targetCompatibility='1.8'
-sourceCompatibility = '1.8'
 
 repositories {
     mavenCentral()
 }
 
 mainClassName = 'App'
+
+sourceCompatibility = '1.8'
+
 applicationName='wildlife-priscah'
 
 dependencies {
